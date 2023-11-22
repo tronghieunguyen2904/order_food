@@ -1,5 +1,6 @@
 import express from 'express'
 import routerLoaihang from './routes/loaihang.route.js'
+import routerSanPham from './routes/sanpham.route.js'
 import cors from 'cors'
 const app = express();
 const port = 3001;
@@ -12,6 +13,7 @@ app.use(
 );
 
 app.use("/api/loaihang",routerLoaihang)
+app.use("/api/sanpham",routerSanPham)
 
 
 app.listen(port, () => {
