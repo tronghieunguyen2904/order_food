@@ -14,7 +14,6 @@ const loginController = {
           // User with the provided email not found
           return res.status(401).json({ success: false, message: "Invalid email or password" });
         }
-  
         const storedHashedPassword = rows[0].password;
   
         // Compare the provided password with the stored hashed password
@@ -39,6 +38,15 @@ const loginController = {
     async handleRegister(req, res) {
       try {
         const { gmail, ten, tendem, password, diachi, gioitinh, sdt, matrangthai, maphanquyen } = req.body;
+
+        const emailCheckSql = "SELECT COUNT(*) AS emailCount FROM khachhang WHERE gmail = ?";
+        const [emailCheckResult] = await pool.query(emailCheckSql, [gmail]);
+  
+        if (emailCheckResult[0].emailCount > 0) {
+          // Email already exists, return an error response
+          return res.status(400).json({ success: false, message: "Email already exists" });
+        }
+
         const sql = "INSERT INTO khachhang (gmail, ten, tendem, password, diachi, gioitinh, sdt, matrangthai, maphanquyen) VALUES (?, ?, ?,?,?,?,?,?,?)";
         const salt = await bcrypt.genSalt(10);
 
