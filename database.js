@@ -60,15 +60,15 @@ export async function registerUser(gmail, ten, tendem, password, diachi, gioitin
     return { success: false, message: "Registration failed", error: error.message };
   }
 }
-export async function createOrderWithDetails(id, hoten, diachi, sdt, trangthai, ngaydathang, mathanhtoan, mavanchuyen, makhachhang, details) {
+export async function createOrderWithDetails(id, hoten, diachi, sdt, trangthai, ngaydathang, mathanhtoan, mavanchuyen, makhachhang,tongtien, details) {
   try {
     // Start a transaction to ensure data consistency
 
 
     // Insert into the orders table
     const orderResult = await pool.query(
-      "INSERT INTO hoadon (id, hoten, diachi, sdt, trangthai, ngaydathang, mathanhtoan, mavanchuyen, makhachhang) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-      [id, hoten, diachi, sdt, trangthai, ngaydathang, mathanhtoan, mavanchuyen, makhachhang]
+      "INSERT INTO hoadon (id, hoten, diachi, sdt, trangthai, ngaydathang, mathanhtoan, mavanchuyen, makhachhang,tongtien) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)",
+      [id, hoten, diachi, sdt, trangthai, ngaydathang, mathanhtoan, mavanchuyen, makhachhang,tongtien]
     );
 
     // Get the inserted order ID
@@ -91,6 +91,21 @@ export async function createOrderWithDetails(id, hoten, diachi, sdt, trangthai, 
     // await pool.rollback();
 
     console.error('Error creating order with details:', error.message);
+    throw error;
+  }
+}
+
+export async function getOrdersByCustomerId(customerId) {
+  try {
+    const result = await pool.query(`
+      SELECT *
+      FROM hoadon
+      WHERE makhachhang = ?
+    `, [customerId]);
+
+    return result;
+  } catch (error) {
+    console.error('Error fetching orders for customer:', error.message);
     throw error;
   }
 }
