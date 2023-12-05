@@ -3,17 +3,17 @@ import bcrypt from 'bcrypt';
 
 
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'order_food',
-  }).promise()
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'order_food',
+}).promise()
 export default pool;
-export async function getLoaiHang(){
-    const result = await pool.query("select * from loaihang")
-    return result;
+export async function getLoaiHang() {
+  const result = await pool.query("select * from loaihang")
+  return result;
 }
-export async function getSanPham(){
+export async function getSanPham() {
   try {
     // Thực hiện truy vấn để lấy thông tin từ cả hai bảng
     const result = await pool.query(`
@@ -38,7 +38,7 @@ export async function filterSanPham(id) {
 }
 
 export async function loginUser(username, password) {
- 
+
 }
 
 export async function registerUser(gmail, ten, tendem, password, diachi, gioitinh, sdt) {
@@ -83,7 +83,7 @@ export async function createOrderWithDetails(id, hoten, diachi, sdt, trangthai, 
     }
 
     // Commit the transaction
- 
+
 
     return true;
   } catch (error) {
