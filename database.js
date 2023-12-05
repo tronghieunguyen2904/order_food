@@ -60,15 +60,15 @@ export async function registerUser(gmail, ten, tendem, password, diachi, gioitin
     return { success: false, message: "Registration failed", error: error.message };
   }
 }
-export async function createOrderWithDetails(id, hoten, diachi, sdt, trangthai, ngaydathang, mathanhtoan, mavanchuyen, makhachhang,tongtien, details) {
+export async function createOrderWithDetails(id, hoten, diachi, sdt, trangthai, ngaydathang, mathanhtoan, mavanchuyen, makhachhang,tongtien, details,ghichu,quan) {
   try {
     // Start a transaction to ensure data consistency
 
 
     // Insert into the orders table
     const orderResult = await pool.query(
-      "INSERT INTO hoadon (id, hoten, diachi, sdt, trangthai, ngaydathang, mathanhtoan, mavanchuyen, makhachhang,tongtien) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)",
-      [id, hoten, diachi, sdt, trangthai, ngaydathang, mathanhtoan, mavanchuyen, makhachhang,tongtien]
+      "INSERT INTO hoadon (id, hoten, diachi, sdt, trangthai, ngaydathang, mathanhtoan, mavanchuyen, makhachhang,tongtien,ghichu,quan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)",
+      [id, hoten, diachi, sdt, trangthai, ngaydathang, mathanhtoan, mavanchuyen, makhachhang,tongtien,ghichu,quan]
     );
 
     // Get the inserted order ID

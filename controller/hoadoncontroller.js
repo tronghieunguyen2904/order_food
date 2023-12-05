@@ -6,10 +6,10 @@ const hoadonController = {
     async handleCreateOrder(req, res) {
       try {
         // Extract data from the request body, including order details
-        const { id, hoten, diachi, sdt, trangthai, ngaydathang, mathanhtoan, mavanchuyen, makhachhang, tongtien,details } = req.body;
+        const { id, hoten, diachi, sdt, trangthai, ngaydathang, mathanhtoan, mavanchuyen, makhachhang, tongtien,details,ghichu,quan } = req.body;
 
         // Call the createOrderWithDetails function from the database to insert the order and details
-        const orderId = await createOrderWithDetails(id, hoten, diachi, sdt, trangthai, ngaydathang, mathanhtoan, mavanchuyen, makhachhang,tongtien, details);
+        const orderId = await createOrderWithDetails(id, hoten, diachi, sdt, trangthai, ngaydathang, mathanhtoan, mavanchuyen, makhachhang,tongtien, details,ghichu,quan);
         // Check if the order was created successfully
         if (orderId) {
           res.status(200).json({ success: true, message: 'Order created successfully', orderId });
