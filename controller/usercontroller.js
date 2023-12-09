@@ -1,4 +1,4 @@
-import { getOrdersByCustomerId } from "../database.js";
+import { getOrdersByCustomerId , updateCustomerInfo } from "../database.js";
 
 const userController = {
   getOrdersByCustomerId: async (req, res) => {
@@ -22,6 +22,27 @@ const userController = {
         message: "Internal Server Error",
         error: error.message,
       });
+    }
+  },
+
+  updateCustomer: async (req, res) => {
+    try {
+
+      const updatedInfo = req.body;
+
+      // Call the updateCustomerInfo function from the database
+      const updateResult = await updateCustomerInfo(updatedInfo);
+
+      // Check if the update was successful
+      if (updateResult) {
+        res.status(200).json({ success: true, message: 'Customer info updated successfully' });
+      } else {
+        console.log("SQL Parameters:", [updatedInfo , updateResult.affectedRows]);
+        res.status(404).json({ success: false, message: 'Customer not found or no changes made' });
+      }
+    } catch (error) {
+      console.error('Error updating customer info:', error.message);
+      res.status(500).json({ success: false, message: 'Internal server error' });
     }
   },
 };

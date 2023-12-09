@@ -110,6 +110,22 @@ export async function getOrdersByCustomerId(customerId) {
   }
 }
 
+// Trong file database.js
+export async function updateCustomerInfo(updatedInfo) {
+  try {
+    const result = await pool.query(
+      "UPDATE khachhang SET ten = ?, tendem = ?, diachi = ?, gioitinh = ?, sdt = ? WHERE id = ?",
+      [updatedInfo.ten, updatedInfo.tendem, updatedInfo.diachi, updatedInfo.gioitinh, updatedInfo.sdt, updatedInfo.id]
+    );
+
+    return result;
+  } catch (error) {
+    console.error('Error updating customer info:', error.message);
+    throw error;
+  }
+}
+
+
 
 
 
